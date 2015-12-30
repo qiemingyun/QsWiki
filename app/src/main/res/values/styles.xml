@@ -1,0 +1,29 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+    <style name="listitem_username">
+        <item name="android:textSize">@dimen/g_txt_big</item>
+        <item name="android:textColor">#ff3b3d42</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:maxWidth">248.0dip</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:layout_weight">1.0</item>
+    </style>
+    <style name="listitem_content">
+        <item name="android:textSize">@dimen/g_txt_big</item>
+        <item name="android:textColor">#ff636251</item>
+        <item name="android:lineSpacingExtra">1.5dip</item>
+    </style>
+    <style name="listitem_comment">
+        <item name="android:textSize">14.0sp</item>
+        <item name="android:textColor">#ff969696</item>
+    </style>
+
+</resources>
