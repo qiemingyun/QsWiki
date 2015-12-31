@@ -3,11 +3,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".fragments.ArticleFragment">
-
-    <!-- TODO: Update blank fragment layout -->
-    <ListView
+    <android.support.v4.widget.SwipeRefreshLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/article_list" />
-
+        android:id="@+id/article_swipe">
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/article_list" />
+    </android.support.v4.widget.SwipeRefreshLayout>
 </FrameLayout>

@@ -1,9 +1,11 @@
 package com.jash.qswiki.fragments;
 
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,12 +25,13 @@ import retrofit.Retrofit;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ArticleFragment extends Fragment implements Callback<ArticleResult> {
+public class ArticleFragment extends Fragment implements Callback<ArticleResult>, SwipeRefreshLayout.OnRefreshListener {
 
 
     private ArticleItemAdapter adapter;
     private String type;
-
+    private SwipeRefreshLayout swipe;
+    private int page;
     public ArticleFragment() {
         // Required empty public constructor
     }
@@ -57,18 +60,35 @@ public class ArticleFragment extends Fragment implements Callback<ArticleResult>
         ListView list = (ListView) view.findViewById(R.id.article_list);
         adapter = new ArticleItemAdapter(getContext());
         list.setAdapter(adapter);
-        Call<ArticleResult> article = HttpUtils.getService().getArticle(type, 1);
+        page = 1;
+        swipe = ((SwipeRefreshLayout) view.findViewById(R.id.article_swipe));
+        swipe.setSize(SwipeRefreshLayout.LARGE);
+        swipe.setColorSchemeColors(Color.RED, Color.BLUE, Color.GREEN);
+        swipe.setOnRefreshListener(this);
+        Call<ArticleResult> article = HttpUtils.getService().getArticle(type, page);
         article.enqueue(this);
     }
 
     @Override
     public void onResponse(Response<ArticleResult> response, Retrofit retrofit) {
+        if (page == 1) {
+            adapter.clear();
+        }
         adapter.addAll(response.body().getList());
+        swipe.setRefreshing(false);
     }
 
     @Override
     public void onFailure(Throwable t) {
         t.printStackTrace();
         Toast.makeText(getContext(), "网络问题", Toast.LENGTH_SHORT).show();
+        swipe.setRefreshing(false);
+    }
+
+    @Override
+    public void onRefresh() {
+        page = 1;
+        HttpUtils.getService().getArticle(type, page).enqueue(this);
+
     }
 }

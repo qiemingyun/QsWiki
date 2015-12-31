@@ -98,6 +98,10 @@ public class ArticleItemAdapter extends BaseAdapter {
         list.addAll(collection);
         notifyDataSetChanged();
     }
+    public void clear(){
+        list.clear();
+        notifyDataSetChanged();
+    }
 
     public static class ViewHolder {
         private RadioGroup group;
